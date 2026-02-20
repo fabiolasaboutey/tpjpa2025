@@ -4,42 +4,43 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@NamedQuery(name="Concert.findAllByArtist", query = "SELECT c FROM Concert c WHERE c.artist = :name")
 public class Concert {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String artistName;
-    private String venue;
+    private String artist;
+    private String location;
 
-    @Temporal(TemporalType.TIMESTAMP) // Clearly defines the DB format
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "organisator_id") // Maps the foreign key column
-    private Organisator organisator;
+    @JoinColumn(name = "organisator_id")
+    private Organizer organizer;
 
     public Concert() {}
 
-    public Concert(String artistName, String venue, Date date, double price, Organisator organisator) {
-        this.artistName = artistName;
-        this.venue = venue;
+    public Concert(String artist, String location, Date date, double price, Organizer organizer) {
+        this.artist = artist;
+        this.location = location;
         this.date = date;
         this.price = price;
-        this.organisator = organisator;
+        this.organizer = organizer;
     }
 
     // Standard Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getArtistName() { return artistName; }
-    public void setArtistName(String artistName) { this.artistName = artistName; }
+    public String getArtist() { return artist; }
+    public void setArtist(String artistName) { this.artist = artistName; }
 
-    public String getVenue() { return venue; }
-    public void setVenue(String venue) { this.venue = venue; }
+    public String getLocation() { return location; }
+    public void setLocation(String venue) { this.location = venue; }
 
     public Date getDate() { return date; }
     public void setDate(Date date) { this.date = date; }
@@ -47,6 +48,6 @@ public class Concert {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
-    public Organisator getOrganisator() { return organisator; }
-    public void setOrganisator(Organisator organisator) { this.organisator = organisator; }
+    public Organizer getOrganizer() { return organizer; }
+    public void setOrganizer(Organizer organizer) { this.organizer = organizer; }
 }
